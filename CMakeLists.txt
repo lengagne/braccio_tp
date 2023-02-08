@@ -7,11 +7,12 @@ project(braccio_tp)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED roscpp std_msgs sensor_msgs aruco_ros aruco_msgs tf message_generation)
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Eigen3 REQUIRED)
 
+find_package(yaml-cpp REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -109,12 +110,41 @@ catkin_package(
 ## Build ##
 ###########
 
-## Specify additional locations of header files
+# Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
-# ${catkin_INCLUDE_DIRS}
+    include
+    ${EIGEN3_INCLUDE_DIR}
+    ${catkin_INCLUDE_DIRS}
+    ${YAML_INCLUDE_DIRS}
 )
+
+## Declare a C++ library
+#############################################
+#################### TP1 ####################
+#############################################
+
+add_library(    Localization
+                lib/Transformation.cpp
+                lib/Localizer.cpp
+)
+
+add_dependencies(Localization ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(  Localization
+                        yaml-cpp
+                        ${catkin_LIBRARIES}
+)
+
+add_executable(marker_broadcast src/MarkersBroadcast.cpp)
+
+add_dependencies(marker_broadcast ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(  marker_broadcast
+                        Localization
+                        ${catkin_LIBRARIES}
+)
+
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
