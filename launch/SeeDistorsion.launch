@@ -3,7 +3,7 @@
 
     <arg name="webcam"        default="/dev/video0"/>
     
-    <include file="$(find auro8_common)/launch/RunWebcam.launch">
+    <include file="$(find braccio_tp)/launch/RunWebcam.launch">
         <arg name="webcam" value="$(arg webcam)"/>
     </include>
 	
