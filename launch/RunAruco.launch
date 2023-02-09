@@ -2,7 +2,7 @@
 <launch>
 
     <arg name="webcam"        default="/dev/video0"/>
-    <arg name="webcam_calibration"        default="file://$(find auro8_tps)/results/usb_cam_c170.yaml"/>
+    <arg name="webcam_calibration"        default="file://$(find braccio_tp)/results/usb_cam_c170.yaml"/>
     
     <include file="$(find braccio_tp)/launch/RunWebcam.launch">
         <arg name="webcam" value="$(arg webcam)"/>
