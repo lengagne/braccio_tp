@@ -25,13 +25,13 @@ int main(int argc, char** argv){
     
     std::string static_markers_file;
     
-    if (nh.getParam("/auro8_tps/static_markers", static_markers_file))
+    if (nh.getParam("/braccio_tp/static_markers", static_markers_file))
     {
         ROS_INFO("Got param: %s", static_markers_file.c_str());
         camera_localize->InitStaticMarkers(static_markers_file);
     }
     else
-        ROS_ERROR("Failed to get param '/auro8_tps/static_markers'");
+        ROS_ERROR("Failed to get param '/braccio_tp/static_markers'");
 
 
     ros::Subscriber sub = nh.subscribe("/aruco_marker_publisher/markers", 10, callback);    
