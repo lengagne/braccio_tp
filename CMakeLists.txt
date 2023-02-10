@@ -146,6 +146,31 @@ target_link_libraries(  marker_broadcast
 )
 
 
+#############################################
+#################### TP2 ####################
+#############################################
+
+
+add_library(    RobotModel
+                lib/Robot.cpp
+)
+
+target_link_libraries(  RobotModel
+                        ${catkin_LIBRARIES}
+)
+
+
+add_executable( check_MGD "src/check_MGD.cpp")        
+
+add_dependencies(check_MGD ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+target_link_libraries(  check_MGD
+                        RobotModel
+                        Localization
+                        ${catkin_LIBRARIES})
+                        
+
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/braccio_tp.cpp
