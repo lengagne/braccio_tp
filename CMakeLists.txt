@@ -170,6 +170,30 @@ target_link_libraries(  check_MGD
                         Localization
                         ${catkin_LIBRARIES})
                         
+                        
+                        
+add_executable( check_control_joystick "src/RobotControlJoystick.cpp")        
+
+add_dependencies(check_control_joystick ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+target_link_libraries(  check_control_joystick
+                        RobotModel
+                        Localization
+                        ${catkin_LIBRARIES})                        
+
+                        
+                        
+################################################
+## noeud générique
+
+
+add_executable( robot_mover "src/robot_mover.cpp")                        
+
+target_link_libraries(  robot_mover
+                        ${catkin_LIBRARIES})
+
+
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}

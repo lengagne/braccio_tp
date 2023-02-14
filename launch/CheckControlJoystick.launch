@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <arg name="joystick"        default="/dev/input/js0"/>
+    
+    <node name="joystick" pkg="joy" type="joy_node">
+        <param name="dev" value="$(arg joystick)"/>
+    </node>
+    
+    <node name="check_control" pkg="braccio_tp" type="check_control_joystick"/>
+    
+    <include file="$(find  braccio_tp)/launch/RunRobot.launch"/>    
+    
+  </launch>

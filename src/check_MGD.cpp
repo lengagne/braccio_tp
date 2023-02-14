@@ -17,10 +17,11 @@
 
 
 #include "ros/ros.h"
-#include "Robot.h"
 #include "sensor_msgs/JointState.h"
 #include "geometry_msgs/PoseArray.h"
 #include "std_msgs/String.h"
+
+#include "Robot.h"
 
 // The Goal of this node is to compare the observation (via aruco) of the end effector and its computation through the model.
 
