@@ -20,9 +20,6 @@ public:
     // Renvoie la matrice Jacobienne en position
     Eigen::Matrix<double,3,5> ComputeJacobian( const std_msgs::Float64MultiArray& Q);
     
-    // renvoie la distance la plus courte entre tous les corps du robot et l'obstacle (son repère)
-    double get_minimal_distance( const Transformation& T);
-    
     // Met a jour la pose de chaque repere (TLink) et renvoie le repere de l'effecteur.
     Transformation  ModGeoDirect( const VECTOR & Q);
     
@@ -30,9 +27,6 @@ public:
     // Renvoie false si ce n'est pas faisable
     bool  ModGeoInverse( const Transformation& T,
                             VECTOR & OUT);    
-    
-    // Si on souhaite mettre a jour d'autre pose (liées au robot par exemple)
-    void update_additional_pose();
     
     // valeur minimale et maximale des articulations
     std::vector<double> qmin,qmax;
@@ -45,10 +39,7 @@ public:
     
     // Transformation des repères
     std::vector<Transformation> TLink;
-    
-    // Transformation de repère additionnels (utiles pour le calcul de distance par exemple)
-    std::vector<Transformation> TAdd;
-    
+        
     double PI = 2*asin(1);
 };
 

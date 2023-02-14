@@ -93,12 +93,7 @@ int main(int argc, char** argv){
     
     while (ros::ok())
     {
-        
-         ROS_INFO("bouton 1 = %d", joy_message.buttons[1]);
-         ROS_INFO("bouton 3 = %d", joy_message.buttons[3]);
-        // update regarding joystick
-        
-     
+        // update desired position regarding joystick
         desired_position(0) += 0.01* joy_message.axes[1];
         desired_position(1) += 0.01* joy_message.axes[0];        
         desired_position(2) += 0.01*joy_message.buttons[5] - 0.01*joy_message.buttons[7];
