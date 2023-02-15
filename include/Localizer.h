@@ -26,10 +26,6 @@ public:
         publish_markers_on_tf = b;
     }
     
-    void PublishObject();
-    
-    void PublishPair();
-    
     void PublishTF();
         
     void SetNbCamera( unsigned int nb)
