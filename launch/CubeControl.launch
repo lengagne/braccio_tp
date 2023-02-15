@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    
+    
+    <node name="control_cube" pkg="braccio_tp" type="control_cube"/>
+    
+    <include file="$(find  braccio_tp)/launch/MarkersBroadcast.launch"/>    
+    
+  </launch>

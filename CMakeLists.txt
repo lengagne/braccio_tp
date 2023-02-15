@@ -190,6 +190,15 @@ target_link_libraries(  check_control_joystick
                         Localization
                         ${catkin_LIBRARIES})                        
 
+add_executable( robot_control_cube "src/RobotControlCube.cpp")        
+
+add_dependencies(robot_control_cube ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+target_link_libraries(  robot_control_cube
+                        RobotModel
+                        Localization
+                        ${catkin_LIBRARIES})                        
                         
                         
 ################################################

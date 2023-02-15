@@ -103,7 +103,6 @@ int main(int argc, char** argv){
         // open/close gripper
         q.data[5] += 0.05*joy_message.buttons[1] - 0.05*joy_message.buttons[3];
         
-        
         pub_q.publish(q);
         ROS_INFO("q(5) = %f", q.data[5]);
 
