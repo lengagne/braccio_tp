@@ -38,7 +38,7 @@ void joyCallback(const sensor_msgs::Joy& joy)
 
 int main(int argc, char** argv){
    
-    ros::init(argc, argv, "robot_control");
+    ros::init(argc, argv, "inverse_kinematic");
     ros::NodeHandle nh;
     
     // init messages
@@ -54,8 +54,7 @@ int main(int argc, char** argv){
     
     desired_position = (Braccio.ModGeoDirect(q)).position;    
     
-    ros::Subscriber sub_joy = nh.subscribe("/joy", 10, joyCallback);    
-//     ros::Subscriber sub_joint = nh.subscribe("/joint_states", 10, jointCallback);  
+    ros::Subscriber sub_joy = nh.subscribe("/joy", 1, joyCallback);    
     
     ros::Publisher pub_q = nh.advertise<std_msgs::Float64MultiArray>("joint_angles", 1000);
     
@@ -98,11 +97,10 @@ int main(int argc, char** argv){
         desired_position(1) += 0.01* joy_message.axes[0];        
         desired_position(2) += 0.01*joy_message.buttons[5] - 0.01*joy_message.buttons[7];
         
-        Braccio.ComputeControl(q,(Braccio.ModGeoDirect(q)).position,desired_position,q);
+        Braccio.ModGeoInverse(desired_position,q);
         
         // open/close gripper
         q.data[5] += 0.05*joy_message.buttons[1] - 0.05*joy_message.buttons[3];
-        
         
         pub_q.publish(q);
         ROS_INFO("q(5) = %f", q.data[5]);

@@ -170,7 +170,15 @@ target_link_libraries(  check_MGD
                         Localization
                         ${catkin_LIBRARIES})
                         
+
+add_executable( check_inverse_kinematic_joystick "src/InverseKinematicJoystick.cpp")        
+
+add_dependencies(check_inverse_kinematic_joystick ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
                         
+target_link_libraries(  check_inverse_kinematic_joystick
+                        RobotModel
+                        Localization
+                        ${catkin_LIBRARIES})      
                         
 add_executable( check_control_joystick "src/RobotControlJoystick.cpp")        
 
