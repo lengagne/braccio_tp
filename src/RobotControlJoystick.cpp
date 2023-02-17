@@ -58,7 +58,7 @@ int main(int argc, char** argv){
     
     ros::Publisher pub_q = nh.advertise<std_msgs::Float64MultiArray>("joint_angles", 1000);
     
-    ros::Publisher pub_m = nh.advertise<visualization_msgs::Marker>("control_target", 1000);
+    ros::Publisher pub_m = nh.advertise<visualization_msgs::Marker>("marker_target", 1000);
     
     visualization_msgs::Marker Target;
     Target.header.frame_id = "base_link";

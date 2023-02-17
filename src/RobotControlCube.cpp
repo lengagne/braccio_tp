@@ -2,6 +2,7 @@
 #include <sensor_msgs/Joy.h>
 #include <std_msgs/Float64.h>
 #include <sensor_msgs/JointState.h>
+#include <braccio_tp/Target.h>
 #include <tf/transform_listener.h>
 #include "Robot.h"
 
@@ -14,16 +15,24 @@ Robot Braccio;
 
 std_msgs::Float64 error;
 
-bool gripper_open;
-
 sensor_msgs::Joy joy_message;
 bool joy_received = false;
+
+braccio_tp::Target target_message;
+bool target_received = false;
 
 void joyCallback(const sensor_msgs::Joy& joy)
 {
     joy_message = joy;
     joy_received = true;
 }
+
+void targetCallback(const braccio_tp::Target& msg)
+{
+    target_message = msg;
+    target_received = true;
+}
+
 
 int main(int argc, char** argv){
    
@@ -40,10 +49,16 @@ int main(int argc, char** argv){
     q.data[5] = 0.72;
     
     error.data = 1e3;
-        
-    gripper_open = true;
     
-    ros::Subscriber sub_joy = nh.subscribe("/joy", 10, joyCallback);    
+    target_message.object = "/EndEffector";
+    target_message.target = "/CubeJaune";
+    target_message.x_offset = 0.0;
+    target_message.y_offset = 0.0;
+    target_message.z_offset = 0.0;
+    target_message.gripper_open = true;    
+    
+    ros::Subscriber sub_joy = nh.subscribe("/joy", 10, joyCallback);
+    ros::Subscriber sub_target = nh.subscribe("/control_target", 10, targetCallback);        
     
     ros::Publisher pub_q = nh.advertise<std_msgs::Float64MultiArray>("joint_angles", 1);
     ros::Publisher pub_error = nh.advertise<std_msgs::Float64>("control_error", 1);
@@ -58,15 +73,15 @@ int main(int argc, char** argv){
     {
         ROS_INFO("Computing");
         try{
-            listener.lookupTransform("/base_link", "/CubeJaune", ros::Time(0), transform);
+            listener.lookupTransform("/base_link", target_message.target, ros::Time(0), transform);
         }
         catch (tf::TransformException ex){
             ROS_ERROR("%s",ex.what());
 //             ros::Duration(1.0).sleep();
         }        
-        desired_position(0) = transform.getOrigin().x();
-        desired_position(1) = transform.getOrigin().y();
-        desired_position(2) = transform.getOrigin().z();
+        desired_position(0) = transform.getOrigin().x() + target_message.x_offset;;
+        desired_position(1) = transform.getOrigin().y() + target_message.y_offset;;
+        desired_position(2) = transform.getOrigin().z() + target_message.z_offset;
 
 //             std::cout<<"desired_position = "<< desired_position.transpose()<<std::endl;
         
@@ -75,7 +90,7 @@ int main(int argc, char** argv){
         computed_position = (Braccio.ModGeoDirect(q)).position;
         
         try{
-            listener.lookupTransform("/base_link","/EndEffector", ros::Time(0), transform);
+            listener.lookupTransform("/base_link",target_message.object, ros::Time(0), transform);
         }
         catch (tf::TransformException ex){
             ROS_ERROR("%s",ex.what());
@@ -109,7 +124,7 @@ int main(int argc, char** argv){
         
         
         
-        if (gripper_open)
+        if (target_message.gripper_open)
             q.data[5] = 0.0;
         else
             q.data[5] = 1.0;
