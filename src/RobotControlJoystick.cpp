@@ -55,7 +55,6 @@ int main(int argc, char** argv){
     desired_position = (Braccio.ModGeoDirect(q)).position;    
     
     ros::Subscriber sub_joy = nh.subscribe("/joy", 10, joyCallback);    
-//     ros::Subscriber sub_joint = nh.subscribe("/joint_states", 10, jointCallback);  
     
     ros::Publisher pub_q = nh.advertise<std_msgs::Float64MultiArray>("joint_angles", 1000);
     
