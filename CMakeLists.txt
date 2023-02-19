@@ -176,7 +176,15 @@ target_link_libraries(  robot_control_cube
                         RobotModel
                         Localization
                         ${catkin_LIBRARIES})                        
-                        
+
+add_executable( pick_and_place "src/PickAndPlace.cpp")        
+
+add_dependencies(pick_and_place ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+target_link_libraries(  pick_and_place
+                        RobotModel
+                        ${catkin_LIBRARIES})                               
                         
 ################################################
 ## noeud générique

@@ -21,20 +21,6 @@ void joyCallback(const sensor_msgs::Joy& joy)
     joy_received = true;
 }
 
-// void jointCallback(const sensor_msgs::JointState& joint)
-// {
-//     for (int i=0;i<6;i++)
-//     {
-//         if (joint.name[i] == "base_joint")    q.data[0] = joint.position[i];
-//         if (joint.name[i] == "shoulder_joint")    q.data[1] = joint.position[i];
-//         if (joint.name[i] == "elbow_joint")    q.data[2] = joint.position[i];
-//         if (joint.name[i] == "wrist_pitch_joint")    q.data[3] = joint.position[i];
-//         if (joint.name[i] == "wrist_roll_joint")    q.data[4] = joint.position[i];
-//         if (joint.name[i] == "gripper_joint")    q.data[5] = joint.position[i];
-//     }        
-// }
-
-
 
 int main(int argc, char** argv){
    

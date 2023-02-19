@@ -97,10 +97,10 @@ int main(int argc, char** argv){
 //             ros::Duration(1.0).sleep();
             find_actual_position = false;
         }        
-        current_position(0) = transform.getOrigin().x();
-        current_position(1) = transform.getOrigin().y();
-        current_position(2) = transform.getOrigin().z();
-        
+        current_position(0) = transform.getOrigin().x()+ target_message.x_offset;
+        current_position(1) = transform.getOrigin().y()+ target_message.y_offset;;
+        current_position(2) = transform.getOrigin().z()+ target_message.z_offset;;
+        error.data = 62.0;
         if(find_actual_position)
         {
             if ((current_position - computed_position).norm()<0.05)
@@ -134,7 +134,6 @@ int main(int argc, char** argv){
         else
             ROS_INFO("No publish");
 
-        error.data = (desired_position-current_position).norm();
         pub_error.publish(error);
 
         
