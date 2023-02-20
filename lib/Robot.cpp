@@ -15,8 +15,8 @@ Robot::Robot()
     qmax.resize(nb_joint);  // on définit un vecteur de double avec nb_joint composant (en radian)
     
     TStatic[0] = Transformation (0,0,0,0,0,0);                // on définit la premiere transformation, les 6 paramètres sont : Tx, Ty, Tz, Roll, Pitch, Yaw  (angle en degré)
-    QMIN[0] = 0;
-    QMAX[0] = PI;
+    qmin[0] = 0;
+    qmax[0] = PI;
     
 }
 

@@ -60,8 +60,9 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
                 //      cameras_poses[camera_id] est la pose de la camera dans le repere monde (définie avant)
                 // sortie : 
                 //      object_pose : pose de l'objet dans le repere de la monde
-                Transformation local_pose = objects[i].GetLocalPose(j);                
-//                 Transformation object_pose = A COMPLETER
+                Transformation local_pose = objects[i].GetLocalPose(j);             
+                 Transformation object_pose;
+//                 object_pose = A COMPLETER
                 objects[i].SetGlobalPose(object_pose);
             }
         }
