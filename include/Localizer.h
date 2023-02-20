@@ -3,15 +3,6 @@
 
 #include "Object.h"
 
-class pair
-{
-public:
-    std::string name;
-    std::string object1;
-    std::string object2;
-    int id1;
-    int id2;
-};
 
 class Localizer
 {
@@ -44,9 +35,7 @@ private:
     void AddObjectStaticMarkers(const YAML::Node& node);
     
     void AddReferenceStaticMarkers(const YAML::Node& node);
-    
-    void AddPair(const YAML::Node& node);
-    
+      
     bool FoundMarker(   const aruco_msgs::MarkerArray& msg,
                         unsigned int id,
                         Transformation & marker);
@@ -63,18 +52,12 @@ private:
     std::vector< Transformation> cameras_poses; // pose of the camera in the world frame.
     std::vector< marker > reference_markers; // define the pose of static markers in world frames
     
-    std::vector<pair> ListOfPairs;
-    
-    
     ros::NodeHandle n;
     // to publish on TF
     std::string ref = "base_link";
     tf::TransformBroadcaster br;
     std::vector<tf::StampedTransform> frame_vector;
-    
-    // to publish the list of object pose
-    ros::Publisher pub_objects;
-    ros::Publisher pub_pairs;
+
 };
 
 #endif

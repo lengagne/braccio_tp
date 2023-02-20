@@ -339,14 +339,4 @@ object:
             pitch: 0
             yaw: 0      
         known_pose: true
-
         
-pair:
-    name:     "EE2CJ"
-    object1:  "EndEffector"
-    object2:  "CubeJaune"
-    
-pair:
-    name:     "EE2S"
-    object1:  "EndEffector"
-    object2:  "Support"
