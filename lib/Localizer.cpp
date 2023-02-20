@@ -21,7 +21,7 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
             // sortie : 
             //      cameras_poses[camera_id] doit contenir la pose de la caméra dans le repère monde.
             first_id_seen = i;           
-            cameras_poses[camera_id] = reference_markers[i].pose * Trans.inverse();          
+//             cameras_poses[camera_id] = A COMPLETER
             
             break; // pour arreter la boucle for des qu'on trouve un marqueur
         }
@@ -39,7 +39,7 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
             //      cameras_poses[camera_id] est la pose de la camera dans le repere monde (définie avant)
             // sortie
             //      reference_markers[i].pose est la mise à jour de la pose des marqueurs fixes            
-            reference_markers[i].pose = cameras_poses[camera_id]  * Trans;
+//             reference_markers[i].pose = A COMPLETER
         }
     }      
     
@@ -61,7 +61,7 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
                 // sortie : 
                 //      object_pose : pose de l'objet dans le repere de la monde
                 Transformation local_pose = objects[i].GetLocalPose(j);                
-                Transformation object_pose = cameras_poses[camera_id] * Trans * local_pose.inverse();
+//                 Transformation object_pose = A COMPLETER
                 objects[i].SetGlobalPose(object_pose);
             }
         }
