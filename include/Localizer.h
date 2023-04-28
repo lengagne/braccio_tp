@@ -2,7 +2,8 @@
 #define __LOCALIZER_H__
 
 #include "Object.h"
-
+#include "braccio_challenge/Cube.h"
+#include "braccio_challenge/ListeCubes.h"
 
 class Localizer
 {
@@ -16,6 +17,8 @@ public:
     {
         publish_markers_on_tf = b;
     }
+    
+    void PublishCubes();
     
     void PublishTF();
         
@@ -32,7 +35,9 @@ public:
 private:
     
     // YAML read the informations about the static marquers
-    void AddObjectStaticMarkers(const YAML::Node& node);
+    void AddObject(const YAML::Node& node);
+    
+    void AddGenericObject(const YAML::Node& node);
     
     void AddReferenceStaticMarkers(const YAML::Node& node);
       
@@ -41,7 +46,7 @@ private:
                         Transformation & marker);
     
     
-    marker ReadMarkerInfo( const YAML::Node& node);
+    marker ReadMarkerInfo( const YAML::Node& node, uint offset=0);
     
     unsigned int nb_cameras;    // number of possible camera used.
     
@@ -58,6 +63,10 @@ private:
     tf::TransformBroadcaster br;
     std::vector<tf::StampedTransform> frame_vector;
 
+    
+    braccio_challenge::ListeCubes msg_cubes;
+    ros::Publisher pub_cube; 
+    
 };
 
 #endif

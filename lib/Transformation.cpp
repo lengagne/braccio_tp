@@ -128,7 +128,7 @@ Eigen::Matrix<double,3,3> setQuaternion( const double & a, const double & b, con
     rotation(1,2) = 2*c*d - 2*a*b;
     rotation(2,0) = 2*b*d - 2*a*c;
     rotation(2,1) = 2*a*b + 2*c*d;
-    rotation(2,2) = a*a - b*b - c*c + d*d;    
+    rotation(2,2) = a*a - b*b - c*c + d*d;   
         
     return rotation;
 }

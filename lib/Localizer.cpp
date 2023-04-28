@@ -22,7 +22,7 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
             //      cameras_poses[camera_id] doit contenir la pose de la caméra dans le repère monde.
             first_id_seen = i;           
             cameras_poses[camera_id] = reference_markers[i].pose * Trans.inverse();          
-            
+            std::cout<<"cameras_poses[camera_id] = " << cameras_poses[camera_id] <<std::endl; 
             break; // pour arreter la boucle for des qu'on trouve un marqueur
         }
     }    
@@ -43,7 +43,10 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
         }
     }      
     
+    std::cout<<"first_id_seen = "<< first_id_seen <<std::endl;
+    std::cout<<"objects.size() = "<< objects.size() <<std::endl;
     // troisieme étape : on regarde les marqueurs relatifs aux objets
+    if (first_id_seen>=0)   
     for (int i=0;i<objects.size();i++)  
     {
         objects[i].ReInitPoseDefined();
@@ -63,6 +66,7 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
                 Transformation local_pose = objects[i].GetLocalPose(j);                
                 Transformation object_pose = cameras_poses[camera_id] * Trans * local_pose.inverse();
                 objects[i].SetGlobalPose(object_pose);
+                std::cout<<"object_pose["<< objects[i].GetObjectId()<<"] = "<< object_pose <<std::endl;
             }
         }
     }
@@ -79,11 +83,58 @@ void Localizer::ReceiveArucoInformation(  const aruco_msgs::MarkerArray& msg,
 Localizer::Localizer(ros::NodeHandle* nodehandle,unsigned int nb_cam ):n(*nodehandle)
 {
     SetNbCamera(nb_cam);
+    pub_cube = n.advertise<braccio_challenge::ListeCubes>("cubes_presents",100);
 }
 
-void Localizer::AddObjectStaticMarkers(const YAML::Node& node)
+void Localizer::AddGenericObject(const YAML::Node& node)
 {
-    Object new_object( node["name"].as<std::string>() ) ;
+    const YAML::Node& config = node;
+    std::string name =  node["name"].as<std::string>();
+    double mul = node["multiplier"].as<double>();
+    std::vector<unsigned int> ids;
+
+    // get the ids
+    const YAML::Node& c = node["ids"];
+    for (YAML::const_iterator itt=c.begin();itt!=c.end();++itt) 
+    {
+        if ( itt->first.as<std::string>() == "id" )
+        {
+            unsigned int num = itt->second.as<unsigned int>();
+            ids.push_back(num);
+        }
+    }
+    
+//     const YAML::Node& cm = node["markers"];
+    std::vector<marker> markers;
+    for (YAML::const_iterator it=node.begin();it!=node.end();++it) 
+    {
+        if ( it->first.as<std::string>() == "marker" )
+        {
+            std::cout<<"Found new marker"<<std::endl;
+            markers.push_back(ReadMarkerInfo(it->second));            
+        }
+    }  
+    
+    // creates the objects
+    for (int i=0;i<ids.size();i++)
+    {
+        Object new_object( "Cube"+std::to_string(ids[i]));
+        new_object.SetObjectId(ids[i]);
+        std::cout<<"new object "<< ids[i]<<std::endl;
+        for (int j=0;j<markers.size();j++)
+        {
+            new_object.add_marker(markers[j], ids[i]*mul);
+            std::cout<<"\t with marker "<< ids[i]*mul+markers[j].id<<std::endl;
+        }
+        objects.push_back(new_object);
+    }
+}
+
+void Localizer::AddObject(const YAML::Node& node)
+{
+    Object new_object( node["name"].as<std::string>() );
+    new_object.SetObjectId(node["id"].as<unsigned int>());
+    
     YAML::Node config = node;
     for (YAML::const_iterator it=config.begin();it!=config.end();++it) 
     {
@@ -137,9 +188,53 @@ void Localizer::InitStaticMarkers(const std::string & filename )
         }else if ( it->first.as<std::string>() == "object" )
         {
             std::cout<<"AddObjectStaticMarkers"<<std::endl;
-            AddObjectStaticMarkers(it->second);
-        }
+            AddObject(it->second);
+        }if ( it->first.as<std::string>() == "generic_object" )
+        {
+            std::cout<<"AddObjectStaticMarkers"<<std::endl;
+            AddGenericObject(it->second);
+        }        
     }    
+}
+
+void Localizer::PublishCubes()
+{
+    for (int i=0;i<objects.size();i++)  if( objects[i].IsDefined())
+    {
+        int index = -1;
+        // test if already exist
+        for (int j=0;j<msg_cubes.cubes.size();j++)
+        {
+            if (msg_cubes.cubes[j].id == objects[i].GetObjectId())
+            {
+                // cube already defined
+                index = j;
+            }
+        }
+        
+        Transformation T = objects[i].GetGlobalPose( );
+        if (index ==-1)
+        {
+            // create new cube
+            braccio_challenge::Cube cube;
+            cube.id = objects[i].GetObjectId();
+            
+            
+            cube.x = T.position(0);
+            cube.y = T.position(1);
+            cube.z = T.position(2);
+            
+            msg_cubes.cubes.push_back( cube);
+        }else
+        {
+            // update cube information
+            braccio_challenge::Cube &cube = msg_cubes.cubes[index];
+            cube.x = T.position(0);
+            cube.y = T.position(1);
+            cube.z = T.position(2);            
+        }
+    }
+    pub_cube.publish(msg_cubes);
 }
 
 void Localizer::PublishTF()
@@ -168,10 +263,10 @@ void Localizer::PublishTF()
 }
 
 
-marker Localizer::ReadMarkerInfo( const YAML::Node& node)
+marker Localizer::ReadMarkerInfo( const YAML::Node& node,uint offset)
 {
     marker out;
-    out.id = node["id"].as<int>();
+    out.id = offset+node["id"].as<int>();
     
     double x = node["position"]["x"].as<double>();
     double y = node["position"]["y"].as<double>();

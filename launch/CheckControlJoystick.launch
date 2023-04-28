@@ -10,6 +10,6 @@
     <include file="$(find  braccio_tp)/launch/RunRobot.launch"/>    
     
     
-    <node name="check_control" pkg="braccio_tp" type="check_control_joystick"/>    
+<!--     <node name="check_control" pkg="braccio_tp" type="check_control_joystick"/>     -->
     
   </launch>

@@ -207,6 +207,7 @@ double Robot::ComputeControl(   const VECTOR& Qin,
 {
     Eigen::Matrix<double,3,5> Jacobian = ComputeJacobian(Qin);
     Eigen::Matrix<double,5,1> DeltaQ =  Jacobian.transpose() * (  Jacobian * Jacobian.transpose() ).inverse() * (DesiredPosition-CurrentPosition);
+    std::cout<<"Jacobian = "<< Jacobian<<std::endl;
     std::cout<<"CurrentPosition = "<< CurrentPosition.transpose()<<std::endl;
     std::cout<<"DesiredPosition = "<< DesiredPosition.transpose()<<std::endl;
     std::cout<<"DeltaQ = "<< DeltaQ.transpose()<<std::endl;

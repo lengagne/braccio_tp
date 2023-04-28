@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
 <launch>
     
+    <arg name="webcam"        default="/dev/video0"/>
+    <arg name="webcam_calibration"        default="file://$(find braccio_tp)/results/usb_cam_c170.yaml"/>
+    
+    
 	<include file="$(find  braccio_tp)/launch/RunRobotSliders.launch"/>    
         
     <include file="$(find braccio_tp)/launch/RunAruco.launch">
-        <!-- FIXME CANNOT OVERWRITE THE OPTION SET IN RunAruco ??     -->
-             <arg name="webcam_calibration" value="file://$(find braccio_tp)/results/usb_cam_c170.yaml"/>
+        <arg name="webcam" value="$(arg webcam)"/>
+        <arg name="webcam_calibration" value="$(arg webcam_calibration)"/>
     </include>
 
     <include file="$(find braccio_tp)/launch/MarkersBroadcast.launch"/>

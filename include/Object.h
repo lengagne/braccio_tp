@@ -22,10 +22,10 @@ public:
         ids.clear();
     }
     
-    void add_marker( const marker& m)
+    void add_marker( const marker& m, unsigned int offset =0)
     {
         relative_marker.push_back(m);
-        ids.push_back(m.id);
+        ids.push_back(m.id+offset);
     }
     
     bool IsLocalDefined() const
@@ -66,9 +66,19 @@ public:
         return name;
     }
     
+    unsigned int GetObjectId() const
+    {
+        return object_id;
+    }
+    
     void ReInitPoseDefined()
     {
         pose_defined = false;
+    }
+    
+    void SetObjectId( unsigned int i)
+    {
+        object_id = i;
     }
     
     void SetGlobalPose( const Transformation & T)
@@ -86,6 +96,7 @@ private:
     Transformation global_pose;             // pose of the object regarding the world frame.
     
     std::string name;
+    unsigned int object_id;
     std::vector<unsigned int > ids;
     std::vector<marker> relative_marker;    // define the pose of the marker regarding the object frame.
     

@@ -72,87 +72,31 @@ static:
             yaw: 180
         known_pose: false
         
-        
-        
-        
-object:
-    name: "CubeJaune"
-    marker: 
-        id: 10
-        position:
-            x: 0
-            y: 0
-            z: 0.02    
-        orientation:   # set angles in degrees
-            roll: 0
-            pitch: 0
-            yaw: 0        
-        known_pose: true
 
-    marker: 
+generic_object:
+    name: "Cube"
+    multiplier: 10
+    ids:
+        id: 1
+        id: 2
+        id: 3
+        id: 4
+        id: 5
+        id: 6
+        id: 7
+        id: 8
+        id: 9
         id: 11
-        position:
-            x: 0
-            y: -0.02
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: 90
-            pitch: 0
-            yaw: 0     
-        known_pose: true
-
-    marker: 
         id: 12
-        position:
-            x: 0
-            y: 0
-            z: -0.04  
-        orientation:   # set angles in degrees
-            roll: 180
-            pitch: 0
-            yaw: 0     
-        known_pose: true
-
-    marker: 
         id: 13
-        position:
-            x: 0
-            y: 0.04
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: -90
-            pitch: 0
-            yaw: 0     
-        known_pose: true
-
-    marker: 
         id: 14
-        position:
-            x: -0.04
-            y: 0
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: 0
-            pitch: -90
-            yaw: 0     
-        known_pose: true
-
-    marker: 
         id: 15
-        position:
-            x: 0.04
-            y: 0
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: 0
-            pitch: 90
-            yaw: 0     
-        known_pose: true
-        
-object:
-    name: "CubeVert"
+        id: 16
+        id: 17
+        id: 18
+        id: 19    
     marker: 
-        id: 20
+        id: 0
         position:
             x: 0
             y: 0
@@ -164,7 +108,7 @@ object:
         known_pose: true
 
     marker: 
-        id: 21
+        id: 1
         position:
             x: 0
             y: -0.02
@@ -176,7 +120,7 @@ object:
         known_pose: true
 
     marker: 
-        id: 22
+        id: 2
         position:
             x: 0
             y: 0
@@ -188,7 +132,7 @@ object:
         known_pose: true
 
     marker: 
-        id: 23
+        id: 3
         position:
             x: 0
             y: 0.04
@@ -200,7 +144,7 @@ object:
         known_pose: true
 
     marker: 
-        id: 24
+        id: 4
         position:
             x: -0.04
             y: 0
@@ -212,7 +156,7 @@ object:
         known_pose: true
 
     marker: 
-        id: 25
+        id: 5
         position:
             x: 0.04
             y: 0
@@ -221,87 +165,239 @@ object:
             roll: 0
             pitch: 90
             yaw: 0     
-        known_pose: true
+        known_pose: true    
+        
+#object:
+    #name: "CubeJaune"
+    #id: 1
+    #marker: 
+        #id: 10
+        #position:
+            #x: 0
+            #y: 0
+            #z: 0.02    
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: 0
+            #yaw: 0        
+        #known_pose: true
+
+    #marker: 
+        #id: 11
+        #position:
+            #x: 0
+            #y: -0.02
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 90
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 12
+        #position:
+            #x: 0
+            #y: 0
+            #z: -0.04  
+        #orientation:   # set angles in degrees
+            #roll: 180
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 13
+        #position:
+            #x: 0
+            #y: 0.04
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: -90
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 14
+        #position:
+            #x: -0.04
+            #y: 0
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: -90
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 15
+        #position:
+            #x: 0.04
+            #y: 0
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: 90
+            #yaw: 0     
+        #known_pose: true
+        
+#object:
+    #name: "CubeVert"
+    #id: 2
+    #marker: 
+        #id: 20
+        #position:
+            #x: 0
+            #y: 0
+            #z: 0.02    
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: 0
+            #yaw: 0        
+        #known_pose: true
+
+    #marker: 
+        #id: 21
+        #position:
+            #x: 0
+            #y: -0.02
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 90
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 22
+        #position:
+            #x: 0
+            #y: 0
+            #z: -0.04  
+        #orientation:   # set angles in degrees
+            #roll: 180
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 23
+        #position:
+            #x: 0
+            #y: 0.04
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: -90
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 24
+        #position:
+            #x: -0.04
+            #y: 0
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: -90
+            #yaw: 0     
+        #known_pose: true
+
+    #marker: 
+        #id: 25
+        #position:
+            #x: 0.04
+            #y: 0
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: 90
+            #yaw: 0     
+        #known_pose: true
 
         
         
-object:
-    name: "CubeBleu"
-    marker: 
-        id: 30
-        position:
-            x: 0
-            y: 0
-            z: 0.02    
-        orientation:   # set angles in degrees
-            roll: 0
-            pitch: 0
-            yaw: 0        
-        known_pose: true
+#object:
+    #name: "CubeBleu"
+    #id: 3
+    #marker: 
+        #id: 30
+        #position:
+            #x: 0
+            #y: 0
+            #z: 0.02    
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: 0
+            #yaw: 0        
+        #known_pose: true
 
-    marker: 
-        id: 31
-        position:
-            x: 0
-            y: -0.02
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: 90
-            pitch: 0
-            yaw: 0     
-        known_pose: true
+    #marker: 
+        #id: 31
+        #position:
+            #x: 0
+            #y: -0.02
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 90
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
 
-    marker: 
-        id: 32
-        position:
-            x: 0
-            y: 0
-            z: -0.04  
-        orientation:   # set angles in degrees
-            roll: 180
-            pitch: 0
-            yaw: 0     
-        known_pose: true
+    #marker: 
+        #id: 32
+        #position:
+            #x: 0
+            #y: 0
+            #z: -0.04  
+        #orientation:   # set angles in degrees
+            #roll: 180
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
 
-    marker: 
-        id: 33
-        position:
-            x: 0
-            y: 0.04
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: -90
-            pitch: 0
-            yaw: 0     
-        known_pose: true
+    #marker: 
+        #id: 33
+        #position:
+            #x: 0
+            #y: 0.04
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: -90
+            #pitch: 0
+            #yaw: 0     
+        #known_pose: true
 
-    marker: 
-        id: 34
-        position:
-            x: -0.04
-            y: 0
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: 0
-            pitch: -90
-            yaw: 0     
-        known_pose: true
+    #marker: 
+        #id: 34
+        #position:
+            #x: -0.04
+            #y: 0
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: -90
+            #yaw: 0     
+        #known_pose: true
 
-    marker: 
-        id: 35
-        position:
-            x: 0.04
-            y: 0
-            z: 0  
-        orientation:   # set angles in degrees
-            roll: 0
-            pitch: 90
-            yaw: 0     
-        known_pose: true
+    #marker: 
+        #id: 35
+        #position:
+            #x: 0.04
+            #y: 0
+            #z: 0  
+        #orientation:   # set angles in degrees
+            #roll: 0
+            #pitch: 90
+            #yaw: 0     
+        #known_pose: true
         
 
 object:
     name: "EndEffector"
+    id: 1000
     marker: 
         id: 108
         position:
@@ -328,6 +424,7 @@ object:
 
 object:
     name: "Support"
+    id: 1001
     marker: 
         id: 0
         position:

@@ -9,6 +9,7 @@ void callback(const aruco_msgs::MarkerArray& msg)
 {
     camera_localize->ReceiveArucoInformation( msg);
     camera_localize->PublishTF();
+    camera_localize->PublishCubes();
 }
 
 
